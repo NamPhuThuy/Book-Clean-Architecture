@@ -219,3 +219,41 @@ A module should be responsible to one, and only one, actor
 ### Symptom 2: Merges
 ### Solutions:
 
+## Chapter 8: OCP - Open-Closed Principle
+```
+A software artifact should be open for extension but closed for modification.
+```
+- **Open for Extension**: you can add new functionality to it.
+- **Closed for Modification**: you should not change the existing code of the class.
+
+### A thought experiment
+- Giả sử ta có 1 hệ thống hiển thị các tóm tắt tài chính trên 1 webpage (dữ liệu trên webpage này là scrollable và những số âm sẽ được bôi đỏ).
+- Khách hàng yêu cầu có 1 lượng thông tin tương tự được chuyển thành 1 bản báo cáo để in ra trên giấy trắng-mực đen => báo cáo này phải được phân trang (với header, footer,...), và số âm phải có cách.  
+=> Ta sẽ cần phải code thêm, và bao nhiêu code cũ phải bị thay đổi? Một kiến trúc phần mềm tốt sẽ giảm lượng code cần phải chỉnh sửa xuống mức tối thiểu (lý tưởng nhất là = 0)
+
+
+- Bằng cách áp dụng 2 nguyên tắc (SRP và DIP). Bằng việc áp dụng SRP ta sẽ tạo ra được 1 data-flow view như hình 8.1
+<table>
+  <tr>
+    <td><img src="images/img_8_1.png" alt="Image description" width="700px"></td>
+  </tr>
+  <tr>
+    <th>Hình 8.1</th>
+  </tr>
+</table>
+
+- Việc trình bày 1 báo cáo sẽ được chia ra thành 2 giai đoạn:
+  - Giai đoạn 1: Tính toán những data sẽ được báo cáo
+  - Giai đoạn 2: Trình bày dưới dạng **web page** hoặc dạng **in giấy**
+- Để có thể tạo ra sự phân chia này, ta cần tổ chức **source code dependencies** để đảm bảo những thay đổi ở **giai đoạn này** không làm ảnh hưởng tới **giai đoạn khác**. Also, the new organization should ensure that the behavior can be extended without undo modification.
+
+- Ta đạt được điều này bằng cách chia quy trình thành các class, và phân chia các class vào các component  (như hình 8.2)
+
+<table>
+  <tr>
+    <td><img src="images/img_8_2.png" alt="Image description" width="700px"></td>
+  </tr>
+  <tr>
+    <th>Hình 8.2</th>
+  </tr>
+</table>
